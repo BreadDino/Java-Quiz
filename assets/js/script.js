@@ -1,19 +1,21 @@
-// selecors for the different parts of the
+// Selecors for the different parts of the
 var start = document.querySelector("#startQuiz");
 var time = document.querySelector("#currentTime");
 var quiz = document.querySelector(".quiz");
 var questionsEl = document.querySelector(".questionsEl");
 
-// holds what question you are on
-questionIndex = 0;
+// Holds what question you are on
+var questionIndex = 0;
 
-//  holds the starting amount of time
-var secondsLeft = 100;
+// Holds the starting amount of time
 // Holds interval time
+var secondsLeft = 100;
 var holdInterval = 0;
-var ulCreate = document.createElement("ul");
+var penalty = 10;
 
-// questions array
+var score = 0;
+var ulCreate = document.createElement("ul");
+// Questions array
 var questions = [
   {
     question:
@@ -64,7 +66,7 @@ start.addEventListener("click", function () {
     render(questionIndex);
   });
   function render(questionIndex){
-    // clears question data/elements
+    // Clears question data/elements
     questionsEl.innerHTML = "";
     ulCreate.innerHTML = "";
     for (var i = 0; i < questions.length; i++) {
@@ -78,6 +80,43 @@ start.addEventListener("click", function () {
       listItem.textContent = newItem;
       questionsEl.appendChild(ulCreate);
       ulCreate.appendChild(listItem);
-    //   listItem.addEventListener("click", compare);
+      listItem.addEventListener("click", compare);
     });
+  }
+// Listens for selection and checks if answer is correct
+  function compare(event) {
+    var element = event.target;
+  
+    if (element.matches("li")) {
+      var createDiv = document.createElement("div");
+      createDiv.setAttribute("id", "createDiv");
+      if (element.textContent == questions[questionIndex].answer) {
+        score++;
+        createDiv.textContent =
+          "Awesome! Your answer:  " +
+          questions[questionIndex].answer +
+          " was correct!";
+      } else {
+        // Takes 5 seconds off if answered question wrong
+        secondsLeft = secondsLeft - penalty;
+        createDiv.textContent =
+          "Wrong The correct answer was :  " + questions[questionIndex].answer;
+      }
+    }
+    questionIndex++;
+
+    if (questionIndex >= questions.length) {
+      // All done will append last page with user stats
+    //   allDone();
+      createDiv.textContent =
+        "All done. " +
+        "You got  " +
+        score +
+        " out of " +
+        questions.length +
+        " Correct!";
+    } else {
+      render(questionIndex);
+    }
+    questionsEl.appendChild(createDiv);
   }
