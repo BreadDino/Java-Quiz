@@ -11,6 +11,7 @@ questionIndex = 0;
 var secondsLeft = 100;
 // Holds interval time
 var holdInterval = 0;
+var ulCreate = document.createElement("ul");
 
 // questions array
 var questions = [
@@ -63,5 +64,20 @@ start.addEventListener("click", function () {
     render(questionIndex);
   });
   function render(questionIndex){
-    console.log('works')
+    // clears question data/elements
+    questionsEl.innerHTML = "";
+    ulCreate.innerHTML = "";
+    for (var i = 0; i < questions.length; i++) {
+      var userQuestion = questions[questionIndex].question;
+      var userChoices = questions[questionIndex].choices;
+      questionsEl.textContent = userQuestion;
+    }
+    // Creates a list element for each answer option
+    userChoices.forEach(function (newItem) {
+      var listItem = document.createElement("li");
+      listItem.textContent = newItem;
+      questionsEl.appendChild(ulCreate);
+      ulCreate.appendChild(listItem);
+    //   listItem.addEventListener("click", compare);
+    });
   }
