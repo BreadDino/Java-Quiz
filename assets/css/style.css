@@ -28,6 +28,11 @@
     padding: 25px;
   border-radius: 5px;
 }
+.hstimer{
+    display: flex;
+    justify-content: space-between;
+    margin: 50px;
+}
   .quizbody{
     padding-top: 60px;
     display: flex;
