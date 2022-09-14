@@ -58,7 +58,7 @@ start.addEventListener("click", function () {
   
         if (secondsLeft <= 0) {
           clearInterval(holdInterval);
-          allDone();
+          end();
           time.textContent = "Out of Time";
         }
       }, 1000);
@@ -107,7 +107,7 @@ start.addEventListener("click", function () {
 
     if (questionIndex >= questions.length) {
       // All done will append last page with user stats
-    //   allDone();
+      end();
       createDiv.textContent =
         "All done. " +
         "You got  " +
@@ -120,3 +120,95 @@ start.addEventListener("click", function () {
     }
     questionsEl.appendChild(createDiv);
   }
+
+  function end() {
+    questionsEl.innerHTML = "";
+    currentTime.innerHTML = "";
+  
+    var createH1 = document.createElement("h1");
+    createH1.setAttribute("id", "createH1");
+    createH1.textContent = "Game Over!";
+  
+    questionsEl.appendChild(createH1);
+  
+    var createP = document.createElement("p");
+    createP.setAttribute("id", "createP");
+  
+    questionsEl.appendChild(createP);
+  
+    // displays remaining time and score
+    if (secondsLeft >= 0) {
+      var timeRemaining = secondsLeft;
+      var createP2 = document.createElement("p");
+      clearInterval(holdInterval);
+      createP.textContent = "Your final score is: " + timeRemaining;
+    }
+  
+    // initials prompt
+    var createLabel = document.createElement("label");
+    createLabel.setAttribute("id", "createLabel");
+    createLabel.textContent = "Enter your initials: ";
+  
+    questionsEl.appendChild(createLabel);
+  
+    // add initials text box
+    var createInput = document.createElement("input");
+    createInput.setAttribute("type", "text");
+    createInput.setAttribute("id", "initials");
+    createInput.textContent = "";
+  
+    questionsEl.appendChild(createInput);
+  
+    // submit name and score
+    var createSubmit = document.createElement("button");
+    createSubmit.setAttribute("type", "submit");
+    createSubmit.setAttribute("id", "Submit");
+    createSubmit.textContent = "Submit";
+  
+    questionsEl.appendChild(createSubmit);
+  
+    // captures score and name into local storage
+    createSubmit.addEventListener("click", function () {
+      var initials = createInput.value;
+  
+      // if user fails to enter initials
+      if (initials === null) {
+        console.log(
+          "You must enter your initials to be posted on the High-Scores!"
+        );
+      } else {
+        var finalScore = {
+          initials: initials,
+          score: timeRemaining,
+        };
+        console.log(finalScore);
+        var allScores = localStorage.getItem("allScores");
+        if (allScores === null) {
+          allScores = [];
+        } else {
+          allScores = JSON.parse(allScores);
+        }
+        allScores.push(finalScore);
+        var newScore = JSON.stringify(allScores);
+        localStorage.setItem("allScores", newScore);
+      }
+    });
+  }
+
+var highscores = document.querySelector("#highScores");
+var allScores = localStorage.getItem("allScores");
+allScores = JSON.parse(allScores);
+ var highscoresload = document.querySelector("#hsload")
+ highscoresload.addEventListener("click", Loadhs)
+  function Loadhs(){
+    if (allScores !== null) {
+    allScores.sort((a, b) => {
+      return b.score - a.score;
+    });
+    for (var i = 0; i < allScores.length; i++) {
+      var createLi = document.createElement("li");
+      createLi.textContent = allScores[i].initials + " " + allScores[i].score;
+      highscores.appendChild(createLi);
+    }
+  }
+}
