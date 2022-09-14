@@ -4,6 +4,14 @@ var time = document.querySelector("#currentTime");
 var quiz = document.querySelector(".quiz");
 var questionsEl = document.querySelector(".questionsEl");
 
+// holds what question you are on
+questionIndex = 0;
+
+//  holds the starting amount of time
+var secondsLeft = 100;
+// Holds interval time
+var holdInterval = 0;
+
 // questions array
 var questions = [
   {
@@ -38,3 +46,22 @@ var questions = [
     answer: "alerts",
   },
 ];
+
+start.addEventListener("click", function () {
+    if (holdInterval === 0) {
+      holdInterval = setInterval(function () {
+        secondsLeft--;
+        time.textContent = "Time: " + secondsLeft;
+  
+        if (secondsLeft <= 0) {
+          clearInterval(holdInterval);
+          allDone();
+          time.textContent = "Out of Time";
+        }
+      }, 1000);
+    }
+    render(questionIndex);
+  });
+  function render(questionIndex){
+    console.log('works')
+  }
