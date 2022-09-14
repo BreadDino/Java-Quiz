@@ -56,3 +56,13 @@ li{
    padding: 75px;
    font-size: 20px;
   }
+  #initials{
+    height: 30px;
+    color: var(--gray);
+    background-color: var(--dark);
+    font-size: 20px;
+  }
+  #highScores li{
+    width: 100px;
+    font-size: 15px;
+  }
