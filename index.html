@@ -1,12 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Coding Quiz</title>
+  </head>
+
+  <body>
+    <!-- High scores link -->
+    <div id="hsload">
+      <button>View Highscores</button>
+    </div>
+
+    <div class="quizbody">
+      <!-- Timer Element -->
+      <div id="currentTime"></div>
+      <!-- Main Text/Questions Element -->
+      <div class="questionsEl">
+        <h1>Coding Quiz</h1>
+        <p>
+          Do you know JavaScript
+        </p>
+        <ul id="choiceslist"></ul>
+        <!-- Start Button -->
+            <button id="startQuiz">Start Quiz</button>
+      </div>
+    </div>
+    <script src="./assets/js/script.js"></script>
+  </body>
 </html>
